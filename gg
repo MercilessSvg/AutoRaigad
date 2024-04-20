@@ -1,0 +1,67 @@
+-- Get the local player's user ID
+local userID = game.Players.LocalPlayer.UserId
+
+-- Create a table of arguments for the 'EnterRaidRoom' remote event
+local args = {
+    [1] = "Room3"
+}
+
+-- Call the 'EnterRaidRoom' remote event
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("EnterRaidRoom"):FireServer(unpack(args))
+
+-- Create a table of arguments for the 'SelectRaidsDifficulty' remote event
+local args = {
+    [1] = {
+        ["difficulty"] = 1,
+        ["roomName"] = "Room3",
+        ["selectMapId"] = 50105
+    }
+}
+
+-- Call the 'SelectRaidsDifficulty' remote event
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args))
+
+-- Create a table of arguments for the 'SelectRaidsDifficulty' remote event with a higher difficulty
+local args = {
+    [1] = {
+        ["difficulty"] = 4,
+        ["roomName"] = "Room3",
+        ["selectMapId"] = 50105
+    }
+}
+
+-- Call the 'SelectRaidsDifficulty' remote event with a higher difficulty
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SelectRaidsDifficulty"):FireServer(unpack(args))
+
+-- Create a table of arguments for the 'StartChallengeRaidMap' remote event
+local args = {
+    [1] = {
+        ["userIds"] = {
+            [1] = userID
+        },
+        ["roomName"] = "Room3"
+    }
+}
+
+-- Call the 'StartChallengeRaidMap' remote event
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("StartChallengeRaidMap"):InvokeServer(unpack(args))
+
+-- Call the 'LocalPlayerTeleportSuccess' remote event
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer()
+
+-- Wait for 240 seconds
+wait(240)
+
+-- Create a table of arguments for the 'ChangeMap' remote event
+local args = {
+    [1] = {
+        ["currentSlotIndex"] = 1,
+        ["toMapId"] = 50201
+    }
+}
+
+-- Call the 'ChangeMap' remote event
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("ChangeMap"):FireServer(unpack(args))
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("QuitRaidsMap"):InvokeServer(unpack(args))
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("LocalPlayerTeleportSuccess"):InvokeServer()
